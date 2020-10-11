@@ -8,7 +8,7 @@ routes.get('/', (req, res) => {
   res.send('hello word')
 })
 
-routes.get('/getLinkPay', controllerApiGetNet.getGetPAy)
+routes.get('/getBoleto', controllerApiGetNet.getGetPAy)
 
 
 module.exports = routes

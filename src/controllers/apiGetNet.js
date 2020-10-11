@@ -1,26 +1,46 @@
 const reqPromise = require('request-promise')
+const axios = require('axios')
+const FormData = require('form-data')
+
 module.exports = {
 
   getGetPAy: async (req, res) =>{
-    const {title, description, price} = req.body
+    const {name, cpf, price} = req.body
+
+
+
+    const resToken = await reqPromise.post({
+      uri: `https://api-sandbox.getnet.com.br/auth/oauth/v2/token`,
+      form:{
+        'scope': 'oob',
+        'grant_type': 'client_credentials'
+      },
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: 'Basic ZTE3NmI3OWEtZWI5My00ZDk1LWFkMWMtMDU0MzNhYWRiZTEwOjdkY2U2ZGIxLTJjZTgtNDUwNi1hMjYyLTg0MWE1Y2UyZmYwZQ==',
+        
+      },
+      
+    })
+    const JsonToken = JSON.parse(resToken)
 
     const params = {
       "seller_id": "dd9d74e2-7e0c-40e3-8d55-53568f53b626",
-      "amount": "1000",
+      "amount": String(price),
       "order": {
         "order_id": "ae3c3228-0b95-11eb-adc1-0242ac120002"
       },
       "boleto": {
         "our_number": "000001946598",
         "document_number": "170500000019763",
-        "expiration_date": "16/11/2021",
+        "expiration_date": "01/11/2020",
         "instructions": "Não receber após o vencimento",
         "provider": "santander"
       },
       "customer": {
-        "name": "JOAO DA SILVA",
+        "name": name,
         "document_type": "CPF",
-        "document_number": "82916868070",
+        "document_number": cpf,
         "billing_address": {
           "street": "Av. Nações Unidas",
           "number": "1",
@@ -32,20 +52,24 @@ module.exports = {
       }
     }
 
-
-    const response = await reqPromise.post({
-      uri: `https://api-sandbox.getnet.com.br/v1/payments/boleto`,
+    const access_token = JsonToken.access_token
+    
+    const response = await axios({
+      method: 'post',
+      url: `https://api-sandbox.getnet.com.br/v1/payments/boleto`,
       headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json; charset=utf-8",
-        Authorization: "Bearer ace301ac-41ab-4824-9048-0667128a1a1c"
+        'Content-Type': 'application/json; charset=utf-8',
+        Authorization: 'Bearer ' + access_token
       },
-      json: true,
-      body:params,
-      rejectUnauthorized: false
-    }).catch(err => { return res.status(400).json(err) })
-    console.log(response)
-    return res.status(200).json(response)
+      data:params,
+    }).catch(function (response) {
+      //handle error
+      console.log(response);
+  })
+    const link= {
+      link : 'https://api-sandbox.getnet.com.br'+response.data.boleto._links[0].href
+    }
+    return res.status(200).json(link)
 
   }
 
