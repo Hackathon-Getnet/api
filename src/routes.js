@@ -17,7 +17,7 @@ const assistant = new AssistantV1({
 });
 
 
-routes.post('/conversation/', (req, res) => {
+routes.get('/conversation/', (req, res) => {
   const { text, context = {} } = req.query;
 
   const params = {
