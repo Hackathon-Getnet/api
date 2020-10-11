@@ -1,0 +1,123 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "facilitAMEI",
+    "description": "uma descrição",
+    "contact": {
+      "name": "Team 1",
+      "email": "tomacheski2001@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "",
+      "description": "Production"
+    },
+    {
+      "url": "http://localhost:3333/",
+      "description": "Local server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Nossos serviços"
+    }
+  ],
+  "paths": {
+    "/getBoleto": {
+      "get": {
+        "tags": ["Nossos serviços"],
+        "description": "Link do boleto",
+        "operationId": "GetBoleto",
+        "parameters": [
+          {
+            "name": "dataBoleto",
+            "in": "body",
+            "schema": {
+              "$ref": "#/components/schemas/dataBoleto"
+            },
+            "example": {
+              "name": "Vera da Costa",
+              "price": 1000,
+              "cpf": "1111111111"
+            },
+            "required": true,
+            "description": "Necessary data for boleto"
+          }                  
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "financiamentos disponíveis",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref":"#/components/schemas/boleto"
+                },
+                
+                "example": {
+                  "link": "https://api-sandbox.getnet.com.br/v1/payments/boleto/c4ms71qqk8c3pjwb5lw6388x/pdf"
+ 
+              }
+            }
+            }
+          },
+          "400": {
+            "description": "Missing parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "data invalid",
+                  "internal_code": "missing_parameters"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "dataBoleto":{
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "String"
+          },
+          "cpf": {
+            "type": "String"
+          },
+          "price": {
+            "type": "number"
+          }
+        }
+      },
+      "boleto":{
+        "type": "object",
+        "properties": {
+          "link": {
+            "type": "String"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "internal_code": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

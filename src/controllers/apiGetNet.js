@@ -7,7 +7,7 @@ module.exports = {
   getGetPAy: async (req, res) =>{
     const {name, cpf, price} = req.body
 
-
+    console.log('parms',  {name, cpf, price})
 
     const resToken = await reqPromise.post({
       uri: `https://api-sandbox.getnet.com.br/auth/oauth/v2/token`,
@@ -26,7 +26,7 @@ module.exports = {
 
     const params = {
       "seller_id": "dd9d74e2-7e0c-40e3-8d55-53568f53b626",
-      "amount": String(price),
+      "amount": price,
       "order": {
         "order_id": "ae3c3228-0b95-11eb-adc1-0242ac120002"
       },
