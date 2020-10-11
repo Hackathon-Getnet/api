@@ -18,7 +18,7 @@ const assistant = new AssistantV1({
 
 
 routes.post('/conversation/', (req, res) => {
-  const { text, context = {} } = req.body;
+  const { text, context = {} } = req.query;
 
   const params = {
       input: { text },
