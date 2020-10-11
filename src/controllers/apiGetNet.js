@@ -5,7 +5,7 @@ const FormData = require('form-data')
 module.exports = {
 
   getGetPAy: async (req, res) =>{
-    const {name, cpf, price} = req.body
+    const {name, cpf, price} = req.query
 
     console.log('parms',  {name, cpf, price})
 
