@@ -7,8 +7,6 @@ module.exports = {
   getGetPAy: async (req, res) =>{
     const {name, cpf, price} = req.query
 
-    console.log('parms',  {name, cpf, price})
-
     const resToken = await reqPromise.post({
       uri: `https://api-sandbox.getnet.com.br/auth/oauth/v2/token`,
       form:{
@@ -17,7 +15,7 @@ module.exports = {
       },
       headers: {
         'Content-Type': 'multipart/form-data',
-        Authorization: 'Basic ZTE3NmI3OWEtZWI5My00ZDk1LWFkMWMtMDU0MzNhYWRiZTEwOjdkY2U2ZGIxLTJjZTgtNDUwNi1hMjYyLTg0MWE1Y2UyZmYwZQ==',
+        Authorization: 'Basic '+ process.env.AUTHORIZATION_GETNET,
         
       },
       
@@ -64,7 +62,7 @@ module.exports = {
       data:params,
     }).catch(function (response) {
       //handle error
-      console.log(response);
+      res.status(400).json(response)
   })
     const link= {
       link : 'https://api-sandbox.getnet.com.br'+response.data.boleto._links[0].href
