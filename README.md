@@ -14,7 +14,8 @@ API desenvolvida na Hackathon da GETNET organizada pela  **[Shawee][shawee_site]
 
 ## **:rocket: Objetivo**
 
-Objetivo
+A equipe 18 criou o FacilitAMEI, uma solução digital para que o microempreendedor possa melhorar sua gestão (financeira e de produtos) e obter maior lucratividade com apenas um plugin customizado integrado ao WhatsApp Web. 
+Foi desenvolvido um plugin (para o Google Chrome) que facilita a gestão de seu estoque, fluxo de caixa, emissão de boletos automatizados, insights com Inteligência Artificial (IBM Watson) como: oferta de produtos complementares, formalização do MEI, e muito mais. E claro, tudo isso com o menor impacto ao MEI, com aderência quase que instantânea e muito intuitivo. Os boletos são gerados via plataforma da GetNet, mais específico o GetPay, mas isso é apenas uma amostra de vários outros serviços que podem ser utilizados. Além disso, é disponibilizado um dashboard fácil e útil com todas as informações consolidadas, fazendo com que o MEI utilize apenas o WhatsApp e consiga escalar sua produção. E com toda essa informação,  se o MEI quiser ter acesso a serviços bancários (como o Santander Próspera) é necessário apenas aceitar os termos de utilização de dados e automaticamente começa a gerar um score que poderá ser compartilhado com o banco e dessa forma facilitando ao MEI a solicitação de crédito e ao(s) banco(s) uma melhor análise e assertividade ao ofertar crédito.
 
 ## **:computer: Tecnologias**
 
